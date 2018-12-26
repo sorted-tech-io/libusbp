@@ -45,7 +45,7 @@ void print_device(libusbp::device & device)
         << '.'
         << std::setfill('0') << std::setw(2) << (revision & 0xFF)
         << ' '
-        << device.get_os_id()
+        << os_id
         << ' '
         << std::setfill(' ') << std::left << serial_number
         << std::endl;
