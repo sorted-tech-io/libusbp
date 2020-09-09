@@ -17,7 +17,7 @@ libusbp_error * check_driver_installation(struct udev_device * device)
 {
     assert(device != NULL);
     const char * driver_name = udev_device_get_driver(device);
-    if (driver_name != NULL && strcmp(driver_name, "usbfs") != 0)
+    if (driver_name != NULL && strcmp(driver_name, "usbfs") && strcmp(driver_name, "cp210x"))
     {
         return error_create("Device is attached to an incorrect driver: %s.", driver_name);
     }
@@ -83,6 +83,9 @@ libusbp_error * libusbp_generic_interface_create(
     }
 
     // Make sure it is not attached to a kernel driver.
+    // Note: This step might be inappropriate, since libusbp can operate
+    // on some devices that are attached to a kernel driver, like the cp210x
+    // driver.
     if (error == NULL)
     {
         error = check_driver_installation(new_dev);
