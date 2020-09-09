@@ -166,7 +166,7 @@ For detailed documentation of this library, see the header files `libusb.h` and 
 ## Version history
 
 * 1.1.0 (2018-11-23):
-  * Added `libusbp_write_port`.
+  * Added `libusbp_write_pipe`.
 * 1.0.4 (2017-08-29):
   * Fixed a compilation error for macOS.
   * Added the `lsport` example for listing multiple USB serial ports.
