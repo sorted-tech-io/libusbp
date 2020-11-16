@@ -22,6 +22,7 @@ static libusbp_error * device_allocate(libusbp_device ** device)
 
 // Gets the hardware IDs of the device, in ASCII REG_MULTI_SZ format.  If there
 // is no error, the returned IDs must be freed with libusbp_string_free.
+// This function converts the IDs to uppercase before returning them.
 static libusbp_error * device_get_hardware_ids(
     HDEVINFO list, PSP_DEVINFO_DATA info, char ** ids)
 {
@@ -78,6 +79,19 @@ static libusbp_error * device_get_hardware_ids(
         error = error_create("Hardware IDs are empty or not terminated correctly.");
     }
 
+    // Capitalize the hardware IDs because some drivers create USB IDs with the
+    // wrong capitalization (i.e. "Vid" instead of "VID").
+    if (error == NULL)
+    {
+        for (DWORD i = 0; i < size; i++)
+        {
+            if (new_ids[i] >= 'a' && new_ids[i] <= 'z')
+            {
+                new_ids[i] -= 'a' - 'A';
+            }
+        }
+    }
+
     // Pass the IDs to the caller.
     if (error == NULL)
     {
@@ -117,10 +131,6 @@ static libusbp_error * device_take_info_from_hardware_ids(
         }
     }
 
-    // The format of this device's hardware IDs are not recognized.  For
-    // example, this can happen if VirtualBox is capturing a USB device, because
-    // it makes a node with hardware IDs that have different capitalization,
-    // like "USB\Vid_80EE&Pid_CAFE".
     return error_create("Device has no hardware ID with the correct format.");
 }
 
