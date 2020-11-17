@@ -1,7 +1,7 @@
 # libusbp: Pololu USB Library
 
-Version: 1.1.0<br/>
-Release date: 2018-11-23<br/>
+Version: 1.2.0<br/>
+Release date: 2020-11-16<br/>
 [www.pololu.com](https://www.pololu.com/)
 
 The **Pololu USB Library** (also known as **libusbp**) is a cross-platform C library for accessing USB devices.
@@ -165,6 +165,9 @@ For detailed documentation of this library, see the header files `libusb.h` and 
 
 ## Version history
 
+* 1.2.0 (2020-11-16):
+  * Linux: Made the library work with devices attached to the cp210x driver.
+  * Windows: Made the library work with devices that have lowercase letters in their hardware IDs.
 * 1.1.0 (2018-11-23):
   * Added `libusbp_write_pipe`.
 * 1.0.4 (2017-08-29):
