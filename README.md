@@ -55,11 +55,13 @@ This library has a lot in common with [libusb 1.0](http://libusb.info/), which h
 
 ## Building from source on Windows with MSYS2
 
-The recommended way to build this library on Windows is to use [MSYS2](http://msys2.github.io/).  These instructions assume you are building a 32-bit binary.
+The recommended way to build this library on Windows is to use [MSYS2](http://msys2.github.io/).
 
-After installing MSYS2, select "MinGW-w64 Win32 shell" from the Start Menu.  Then run this command to install the required packages:
+After installing MSYS2, launch it by selecting "MSYS2 MinGW 32-bit" or "MSYS2 MinGW 64-bit" from the Start Menu.  Then run this command to install the required packages:
 
-    pacman -S mingw-w64-i686-toolchain mingw-w64-i686-cmake
+    pacman -S $MINGW_PACKAGE_PREFIX-{toolchain,cmake}
+
+If pacman prompts you to enter a selection of packages to install, just press enter to install all of the packages.
 
 Download the source code of this library and navigate to the top-level directory using `cd`.  Then run these commands to build the library and install it:
 
