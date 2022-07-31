@@ -90,14 +90,14 @@ libusbp_error * libusbp_serial_port_create(
           if (last_acm_data_interface == current_interface &&
               last_acm_control_interface_with_no_port >= 0)
           {
-              // We found an ACM control interface with no serial port, followed
-              // by an ACM data interface with a serial port.  For consistency with
+              // We found an ACM control interface with no serial port, then
+              // an ACM data interface with a serial port.  For consistency with
               // other operating systems, we will consider this serial port to
               // actually be associated with the control interface instead of the
               // data interface.
               fixed_interface = last_acm_control_interface_with_no_port;
-              last_acm_control_interface_with_no_port = -1;
           }
+          last_acm_control_interface_with_no_port = -1;
 
           if (fixed_interface == interface_number)
           {
