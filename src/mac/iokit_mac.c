@@ -90,56 +90,6 @@ libusbp_error * service_get_usb_interface(io_service_t service,
     return error;
 }
 
-libusbp_error * service_get_child_by_class(io_service_t service,
-    const char * class_name, io_service_t * interface_service)
-{
-    assert(service != MACH_PORT_NULL);
-    assert(interface_service != NULL);
-
-    *interface_service = MACH_PORT_NULL;
-
-    libusbp_error * error = NULL;
-
-    io_iterator_t iterator = MACH_PORT_NULL;
-    if (error == NULL)
-    {
-        kern_return_t result = IORegistryEntryCreateIterator(
-            service, kIOServicePlane, kIORegistryIterateRecursively, &iterator);
-        if (result != KERN_SUCCESS)
-        {
-            error = error_create_mach(result, "Failed to get recursive iterator.");
-        }
-    }
-
-    // Loop through the devices to find the right one.
-    while (error == NULL)
-    {
-        io_service_t candidate = IOIteratorNext(iterator);
-        if (candidate == MACH_PORT_NULL) { break; }
-
-        // Filter out candidates that are not the right class.
-        bool conforms = IOObjectConformsTo(candidate, class_name);
-        if (!conforms)
-        {
-            IOObjectRelease(candidate);
-            continue;
-        }
-
-        // This is the right one.  Pass it to the caller.
-        *interface_service = candidate;
-        break;
-    }
-
-    if (error == NULL && *interface_service == MACH_PORT_NULL)
-    {
-        error = error_create("Could not find entry with class %s.", class_name);
-        error = error_add_code(error, LIBUSBP_ERROR_NOT_READY);
-    }
-
-    if (iterator != MACH_PORT_NULL) { IOObjectRelease(iterator); }
-    return error;
-}
-
 libusbp_error * service_to_interface(
     io_service_t service,
     CFUUIDRef pluginType,
