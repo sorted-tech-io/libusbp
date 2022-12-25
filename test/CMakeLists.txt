@@ -11,8 +11,6 @@ if (NOT HAVE_CATCH_FRAMEWORK)
   return ()
 endif ()
 
-use_cxx11 ()
-
 set(USE_TEST_DEVICE_A FALSE CACHE BOOL
   "Run tests that require Test Device A.")
 
