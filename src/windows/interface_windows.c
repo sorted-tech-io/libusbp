@@ -113,9 +113,10 @@ static libusbp_error * get_interface_composite(
         return error;
     }
 
-    // Get a list of all the USB-related devices.
-    HDEVINFO new_list = SetupDiGetClassDevs(NULL, "USB", NULL,
-        DIGCF_ALLCLASSES | DIGCF_PRESENT);
+    // Get a list of all the COM port devices.
+    // Note: We might need to detect GUID_DEVINTERFACE_MODEM devices too.
+    HDEVINFO new_list = SetupDiGetClassDevs(&GUID_DEVINTERFACE_COMPORT,
+      NULL, NULL, DIGCF_PRESENT | DIGCF_DEVICEINTERFACE);
     if (new_list == INVALID_HANDLE_VALUE)
     {
         return error_create_winapi(
@@ -179,7 +180,17 @@ static libusbp_error * get_interface_composite(
         unsigned int actual_interface_number;
         int result = sscanf(device_id, "USB\\VID_%*4x&PID_%*4x&MI_%2x\\",
             &actual_interface_number);
-        if (result != 1 || actual_interface_number != interface_number)
+        if (result != 1)
+        {
+          result = sscanf(device_id, "FTDIBUS\\%*[^\\]\\%x",
+            &actual_interface_number);
+          if (result != 1)
+          {
+            // Could not figure out the interface number.
+            continue;
+          }
+        }
+        if (actual_interface_number != interface_number)
         {
             // This is not the right interface.
             continue;
