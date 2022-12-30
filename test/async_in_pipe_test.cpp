@@ -486,6 +486,9 @@ TEST_CASE("async_in_pipe for an interrupt endpoint")
         // ms, a three-packet transfer will quickly receive those two packets
         // and then keep waiting for more.
 
+        // Previous versions of macOS returned one packet instead of two,
+        // but this is no longer true on Darwin Kernel 22.1.0 (Oct 2022).
+
         // Pause the ADC for 100 ms.
         handle.control_transfer(0x40, 0xA0, 100, 0);
 
@@ -508,9 +511,6 @@ TEST_CASE("async_in_pipe for an interrupt endpoint")
 
                 #if defined(VBOX_LINUX_ON_WINDOWS)
                 CHECK(transferred == 0);
-                #elif defined(__APPLE__)
-                CHECK(transferred == transfer_size);
-                CHECK(buffer[4] == 0xAB);
                 #else
                 CHECK(transferred == transfer_size * 2);
                 CHECK(buffer[4] == 0xAB);
