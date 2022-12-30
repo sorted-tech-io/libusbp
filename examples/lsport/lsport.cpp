@@ -44,7 +44,7 @@ bool try_print_port_name(const libusbp::device & device,
     {
         return false;
     }
-    std::cout << "  " << (int)interface_number << ' ' << (int)composite << ' ' << port_name << std::endl;
+    std::cout << "  " << port_name << std::endl;
     return true;
 }
 
@@ -81,7 +81,7 @@ int main_with_exceptions()
 
       // Try to find a port assuming the device is non-composite.  Only do so if
       // no ports were found earlier, to help avoid printing the same port twice.
-      //if (!success)
+      if (!success)
       {
         try_print_port_name(device, 0, false);
       }
