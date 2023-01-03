@@ -68,8 +68,8 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 # Warn about everything.
 if (MSVC)
-set (CMAKE_C_FLAGS "/W3 ${CMAKE_C_FLAGS}")
-set (CMAKE_CXX_FLAGS "/W3 ${CMAKE_CXX_FLAGS}")
+set (CMAKE_C_FLAGS "/Wall ${CMAKE_C_FLAGS}")
+set (CMAKE_CXX_FLAGS "/Wall ${CMAKE_CXX_FLAGS}")
 else()
 # Warn about everything.
 set (CMAKE_C_FLAGS "-Wall -Wextra -pedantic ${CMAKE_C_FLAGS}")
