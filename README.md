@@ -65,8 +65,9 @@ Download the source code of this library and navigate to the top-level directory
 
     mkdir build
     cd build
-    MSYS2_ARG_CONV_EXCL=- cmake .. -G"MSYS Makefiles" -DCMAKE_INSTALL_PREFIX=$MINGW_PREFIX
-    make install DESTDIR=/
+    cmake .. -DCMAKE_INSTALL_PREFIX=$MINGW_PREFIX
+    ninja
+    ninja install
 
 We currently do not provide any build files for Visual Studio.  You can use CMake to generate Visual Studio build files, and the library and its examples will probably compile, but we have not tested the resulting library.
 
