@@ -53,7 +53,7 @@ libusbp_error * libusbp_list_connected_devices(
         // IOServiceGetMatchingServices consumes one reference to dict,
         // so we don't have to CFRelease it.
         kern_return_t result = IOServiceGetMatchingServices(
-            kIOMasterPortDefault, dict, &iterator);
+            kIOMainPortDefault, dict, &iterator);
         dict = NULL;
         if (result != KERN_SUCCESS)
         {

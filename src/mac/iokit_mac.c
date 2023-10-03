@@ -19,7 +19,7 @@ libusbp_error * service_get_from_id(uint64_t id, io_service_t * service)
         return error_create("Failed to create a dictionary matching the ID.");
     }
 
-    *service = IOServiceGetMatchingService(kIOMasterPortDefault, dict);
+    *service = IOServiceGetMatchingService(kIOMainPortDefault, dict);
     if (*service == MACH_PORT_NULL)
     {
         return error_create("Failed to find service with ID 0x%" PRIx64 ".", id);
