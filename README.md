@@ -25,7 +25,7 @@ The library runs on:
 
 * Microsoft Windows (Windows Vista and later)
 * Linux
-* macOS (10.11 and later)
+* macOS (12 and later)
 
 
 ## Supported USB devices and interfaces
