@@ -4,7 +4,7 @@
 #pragma once
 #include <libusbp_config.h>
 #include <libusbp.h>
-#if (NOT BUILD_SYSTEM_LIBUSBP_VERSION_MAJOR == LIBUSBP_VERSION_MAJOR)
+#if BUILD_SYSTEM_LIBUSBP_VERSION_MAJOR != LIBUSBP_VERSION_MAJOR
 #error Major version in libusbp.h disagrees with build system.
 #endif
 #endif
