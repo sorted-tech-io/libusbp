@@ -166,6 +166,8 @@ For detailed documentation of this library, see the header files `libusb.h` and 
 
 ## Version history
 
+* 1.3.1 (2024-02-04):
+  * Increased the minimum supported macOS version to 12, and some other minor changes to fix warnings and errors.
 * 1.3.0 (2023-01-02):
   * Windows: Added support for detecting FTDI serial ports.  (FTDI devices with more than one port have not been tested and the interface for detecting them might change in the future.)
   * macOS: Fixed the detection of serial ports for devices that are not CDC ACM.
